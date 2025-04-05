@@ -31,9 +31,10 @@ VALIDATION(){
     fi
 }
 
+ROOT_ACCESS
+
 echo "Script started executing at : $(date)" | tee -a $LOG_FILE
 
-ROOT_ACCESS
 
 dnf list installed mysql &>>$LOG_FILE
 
