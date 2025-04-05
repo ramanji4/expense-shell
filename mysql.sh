@@ -28,6 +28,7 @@ VALIDATION(){
         exit 1
     else
         echo -e "$G $2 is...SUCCESS $N" | tee -a $LOG_FILE
+    fi
 }
 
 echo "Script started executing at : $(date)" | tee -a $LOG_FILE
