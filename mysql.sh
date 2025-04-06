@@ -51,7 +51,7 @@ fi
 systemctl status mysqld &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
-    echo -e "$R MySQL is not enabled...going to enable the MySQL $N"
+    echo -e "$R MySQL is not enabled...going to enable the MySQL $N" | tee -a $LOG_FILE
     systemctl enable mysqld &>>$LOG_FILE
     VALIDATION $? "Enabling MySQL"
 else
