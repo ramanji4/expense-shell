@@ -15,7 +15,7 @@ N="\e[0m"
 ROOT_ACCESS(){
     if [ $USERID -ne 0 ]
     then
-        echo -e "$R PLEASE RUN THE SCRIPT WITH ROOT PRIVILEGES $N"
+        echo -e "$R PLEASE RUN THE SCRIPT WITH ROOT PRIVILEGES $N" | tee -a $LOG_FILE
         exit 1
     fi
 }
@@ -30,7 +30,7 @@ VALIDATION(){
     fi
 }
 
-ROOT_ACCESS | tee -a $LOG_FILE
+ROOT_ACCESS
 
 mkdir -p $LOGS_FOLDER
 
