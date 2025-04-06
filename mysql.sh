@@ -51,15 +51,22 @@ fi
 systemctl status mysqld &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
-    echo -e "$R MySQL is not enabled...going to enable the MySQL $N" | tee -a $LOG_FILE
+    echo -e "$Y MySQL is not enabled...going to enable the MySQL $N" | tee -a $LOG_FILE
     systemctl enable mysqld &>>$LOG_FILE
     VALIDATION $? "Enabling MySQL"
 else
     echo -e "$G MySQL is already enabled...nothing to do"
 fi
 
-systemctl start mysqld &>>$LOG_FILE
-VALIDATION $? "Starting MySQL"
+systemctl status mysqld &>>$LOG_FILE
+if [ $? -ne 0 ]
+then
+    echo -e "$Y MySQL is not started yet...going to start MySQL...$N" | tee -a $LOG_FILE
+    systemctl start mysqld &>>$LOG_FILE
+    VALIDATION $? "Starting MySQL"
+else
+    echo -e "$G MySQL has started already...nothing to do...$N" | tee -a $LOG_FILE
+fi
 
 mysql -h mysql.ram4india.space -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
 if [ $? -ne 0 ]
