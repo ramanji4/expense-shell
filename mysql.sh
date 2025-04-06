@@ -15,7 +15,7 @@ N="\e[0m"
 ROOT_ACCESS(){
     if [ $USERID -ne 0 ]
     then
-        echo -e "$R PLEASE RUN THE SCRIPT WITH ROOT PRIVILEGES $N" | tee -a $LOG_FILE
+        echo -e "$R PLEASE RUN THE SCRIPT WITH ROOT PRIVILEGES $N"
         exit 1
     fi
 }
@@ -30,7 +30,7 @@ VALIDATION(){
     fi
 }
 
-ROOT_ACCESS
+ROOT_ACCESS | tee -a $LOG_FILE
 
 mkdir -p $LOGS_FOLDER
 
@@ -48,8 +48,15 @@ else
     echo -e "$G MySQL is already installed nothing to do $N" | tee -a $LOG_FILE
 fi
 
-systemctl enable mysqld &>>$LOG_FILE
-VALIDATION $? "Enabling MySQL"
+systemctl status mysqld
+if [ $? -ne 0 ]
+then
+    echo -e "$R MySQL is not enabled...going to enable the MySQL $N"
+    systemctl enable mysqld &>>$LOG_FILE
+    VALIDATION $? "Enabling MySQL"
+else
+    echo -e "$G MySQL is already enabled...nothing to do"
+fi
 
 systemctl start mysqld &>>$LOG_FILE
 VALIDATION $? "Starting MySQL"
