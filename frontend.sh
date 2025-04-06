@@ -24,10 +24,10 @@ ROOT_ACCESS(){
 VALIDATION(){
     if [ $1 -ne 0 ]
     then
-        echo -e "$R...is FAILED...Please cehck it once $N" | tee -a $LOG_FILE
+        echo -e "$R $2...is FAILED...Please cehck it once $N" | tee -a $LOG_FILE
         exit 1
     else
-        echo -e "$G...is SUCCESS $N" | tee -a $LOG_FILE
+        echo -e "$G $2...is SUCCESS $N" | tee -a $LOG_FILE
     fi
 }
 
