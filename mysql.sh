@@ -48,7 +48,7 @@ else
     echo -e "$G MySQL is already installed nothing to do $N" | tee -a $LOG_FILE
 fi
 
-systemctl status mysqld
+systemctl status mysqld &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     echo -e "$R MySQL is not enabled...going to enable the MySQL $N"
