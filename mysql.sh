@@ -42,7 +42,7 @@ dnf list installed mysql &>>$LOG_FILE
 if [ $? -ne 0 ]
 then
     echo -e "$Y mysql is not installed...going to install it $N" | tee -a $LOG_FILE
-    dnf install mysql-server -y
+    dnf install mysql-server -y &>>$LOG_FILE
     VALIDATION $? "MySQL installation"
 else
     echo -e "$G MySQL is already installed nothing to do $N" | tee -a $LOG_FILE
